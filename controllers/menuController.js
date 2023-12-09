@@ -58,6 +58,17 @@ const deleteItem = async (req, res) => {
   }
 };
 
+const search = async (req, res) => {
+  try {
+    const searchQuery = req.query.text;
+    const searchResult = await MenuItems.searchItems(searchQuery);
+    res.send(searchResult);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 
-module.exports = { getAll, getOne, create, update, deleteItem };
+
+
+module.exports = { getAll, getOne, create, update, deleteItem, search };

@@ -74,7 +74,22 @@ try {
 }
 };
 
+// 1C
+const searchItems = async (query) => {
+  try {
+    const regexQuery = new RegExp(query, 'i'); // 'i' for case-insensitive
+    return await MenuItems.find({
+      $or: [
+        { name: { $regex: regexQuery }},
+        { description: { $regex: regexQuery }}
+      ]
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = MenuItems;
 
 
-module.exports = { getAll, getOne, create, update, deleteById, MenuItems };
+module.exports = { getAll, getOne, create, update, deleteById, searchItems, MenuItems };
