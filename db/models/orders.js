@@ -85,6 +85,7 @@ const getByStatus = async (status) => {
 const calculateTotalSales = async (startDate, endDate) => {
   const query = {};
   if (startDate && endDate) {
+    // Pending: validate if date is valid and other edge cases like start date is greater than end date
     query.createdAt = { $gte: new Date(startDate), $lte: new Date(endDate) };
   }
 
@@ -100,6 +101,15 @@ const calculateTotalSales = async (startDate, endDate) => {
   return total;
 };
 
+const getByStatusAndDateRange = async (status, startDate, endDate) => {
+  const query = { status };
+  if (startDate && endDate) {
+    query.createdAt = { $gte: new Date(startDate), $lte: new Date(endDate) };
+  }
+
+  return await Order.find(query);
+};
+
 
 
 module.exports = {
@@ -110,5 +120,6 @@ module.exports = {
   remove,
   getByStatus,
   calculateTotalSales ,
+  getByStatusAndDateRange,
   Order
 };
