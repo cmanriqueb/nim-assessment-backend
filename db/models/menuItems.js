@@ -24,7 +24,7 @@ menuItemsSchema.set("toJSON", {
   virtuals: true
 });
 // menu model
-const MenuItems = mongoose.model("MenuItems", menuItemsSchema);
+const MenuItems = mongoose.model('MenuItems', menuItemsSchema);
 
 const getAll = async () => {
   try {
@@ -64,5 +64,17 @@ const update = async (id, updateData) => {
   }
 };
 
+// 1B
+const deleteById = async (id) => {
+try {
+  const deletedMenuItem = await MenuItems.findByIdAndDelete(id);
+  return deletedMenuItem;
+} catch (error) {
+  return error;
+}
+};
 
-module.exports = { getAll, getOne, create, update, MenuItems };
+module.exports = MenuItems;
+
+
+module.exports = { getAll, getOne, create, update, deleteById, MenuItems };

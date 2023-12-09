@@ -1,5 +1,6 @@
+const mongoose = require("mongoose");
 const MenuItems = require("../db/models/menuItems.js");
-const mongoose = require('mongoose');
+
 
 const getAll = async (req, res) => {
   try {
@@ -45,4 +46,18 @@ const update = async (req, res) => {
   }
 };
 
-module.exports = { getAll, getOne, create, update };
+const deleteItem = async (req, res) => {
+  try {
+    const deletedItem = await MenuItems.deleteById(req.params.id);
+    if (!deletedItem) {
+      return res.status(404).send("Menu item not found");
+    }
+    res.send(`Item with id: ${req.params.id} removed from menu!`);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+
+
+module.exports = { getAll, getOne, create, update, deleteItem };
