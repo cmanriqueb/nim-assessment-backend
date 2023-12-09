@@ -82,6 +82,26 @@ const getByStatus = async (status) => {
   return orders;
 };
 
+const calculateTotalSales = async (startDate, endDate) => {
+  const query = {};
+  if (startDate && endDate) {
+    query.createdAt = { $gte: new Date(startDate), $lte: new Date(endDate) };
+  }
+
+  const orders = await Order.find(query).populate('items.item');
+  const total = orders.reduce((acc, order) => {
+    const orderTotal = order.items.reduce((sum, item) => {
+      // Check if item exists before accessing its price
+      return item.item ? sum + (item.item.price * item.quantity) : sum;
+    }, 0);
+    return acc + orderTotal;
+  }, 0);
+
+  return total;
+};
+
+
+
 module.exports = {
   getAll,
   getOne,
@@ -89,5 +109,6 @@ module.exports = {
   update,
   remove,
   getByStatus,
+  calculateTotalSales ,
   Order
 };

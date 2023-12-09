@@ -4,9 +4,12 @@ const orderController = require("../controllers/orderController");
 const orderRouter = Router();
 
 orderRouter.get("/", orderController.getAll);
+// 2A
+orderRouter.get("/total-sales", orderController.totalSales);
 orderRouter.get("/:id", orderController.getOne);
 orderRouter.post("/", orderController.create);
 orderRouter.put("/:id", orderController.update);
 orderRouter.delete("/:id", orderController.remove);
+
 
 module.exports = orderRouter;
