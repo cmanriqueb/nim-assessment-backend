@@ -79,7 +79,7 @@ const totalSales = async (req, res) => {
 
 const getStatusWithDateRange = async (req, res) => {
   try {
-    const status = req.query.status; // Assuming the status query parameter is 's'
+    const status = req.query.s; // Assuming the status query parameter is 's'
     const { startDate, endDate } = req.query; // For date range feature
     const orders = await Order.getByStatusAndDateRange(status, startDate, endDate);
     res.json(orders);

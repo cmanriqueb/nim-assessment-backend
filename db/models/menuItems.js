@@ -16,10 +16,8 @@ const menuItemsSchema = new mongoose.Schema({
   },
   imageUrl: {
     type: String
-  },   
-    updatedAt: {
-    type: Date}
-});
+ }
+},{ timestamps: true }); // Adds createdAt and updatedAt timestamps
 menuItemsSchema.set("toJSON", {
   virtuals: true
 });
@@ -57,7 +55,7 @@ const create = async (body) => {
 const update = async (id, updateData) => {
   try {
     updateData.updatedAt = new Date(); // Set updatedAt to current date
-    const updatedMenuItem = await MenuItems.findByIdAndUpdate(id, updateData, { new: true });
+    const updatedMenuItem = await MenuItems.findByIdAndUpdate(id, updateData, { new: true, timestamps: true });
     return updatedMenuItem;
   } catch (error) {
     return error;
